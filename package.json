@@ -1,7 +1,6 @@
 {
   "name": "uap-supplier-response-parser",
   "version": "0.1.0",
-  "homepage": "https://usridas.github.io/API-Response-Parser",
   "private": true,
   "dependencies": {
     "@emotion/react": "^11.13.3",
@@ -24,8 +23,6 @@
     "xml2js": "^0.6.2"
   },
   "scripts": {
-    "predeploy": "npm run build",
-    "deploy": "gh-pages -d build",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
@@ -48,8 +45,5 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-  },
-  "devDependencies": {
-    "gh-pages": "^6.2.0"
   }
 }
