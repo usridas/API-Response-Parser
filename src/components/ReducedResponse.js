@@ -3,7 +3,7 @@ import './SingleJson.css';
 import React, { useState } from 'react';
 import { callGetReducedObject } from "../utils/utils";
 import ContentCopyIcon from '@mui/icons-material/ContentCopy';
-import IconButton from '@mui/material/IconButton';
+import Fab from '@mui/material/Fab';
 
 const ReducedResponse = () => {
     const [output, setOutput] = useState('');
@@ -33,13 +33,14 @@ const ReducedResponse = () => {
                     multiline
                     maxRows={40}
                     sx={{width: '100%'}}
+                    helperText="Paste an API response into this text box and click submit to get a shortened version of this response. Only the first element in any array will be returned with an ellipses afterwards."
                 />
                 <Button variant="contained" type="submit" sx={{height: '48px'}}>Submit</Button>
             </form>
             <Card className="codeSingle" sx={{ height: '1000px', overflow: 'auto', display: 'flex', flexDirection: 'column'  }} px={'10px'}>
-                <IconButton aria-label="copy" sx={{width: 'min-content', alignSelf: 'end', margin: '12px', position: 'fixed'}} onClick={copyToClipboard}>
+                <Fab color="primary" aria-label="add" sx={{ alignSelf: 'end', margin: '12px', position: 'fixed'}} onClick={copyToClipboard}>
                     <ContentCopyIcon />
-                </IconButton>
+                </Fab>
                 <CardContent sx={{ height: '100%'}}>
                     {output}
                 </CardContent>

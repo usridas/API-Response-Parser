@@ -86,6 +86,7 @@ const CompareJson = () => {
                                     label="Input API response #1"
                                     multiline
                                     className="input"
+                                    helperText="Paste your first API response into this text box."
                                 />
                             }
                         </div>
@@ -98,6 +99,7 @@ const CompareJson = () => {
                                     label="Input API response #2"
                                     multiline
                                     className="input"
+                                    helperText="Paste your second API response into this text box."
                                 />
                             }
                         </div>
