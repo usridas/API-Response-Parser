@@ -119,7 +119,7 @@ const CompareJson = () => {
                         </div>
                     </div>
                 </div>
-                <Button variant="contained" type="submit" sx={{height: '48px'}}>Submit</Button>
+                <Button variant="contained" type="submit" sx={{height: '48px', width: '200px', margin: '0 auto'}}>Submit</Button>
             </form>
             {showError &&
                 <Alert icon={<ErrorIcon fontSize="inherit" />} severity="error" sx={{marginTop: '24px'}}>

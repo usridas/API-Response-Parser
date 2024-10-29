@@ -45,21 +45,21 @@ const ReducedResponse = () => {
       }
     return (
         <div>
+            <div className="dataTypeContainer">
+                <InputLabel id="demo-simple-select-label">Data Type</InputLabel>
+                <Select
+                    labelId="demo-simple-select-label"
+                    id="demo-simple-select"
+                    value={dataType}
+                    label="Age"
+                    onChange={handleChange}
+                >
+                    <MenuItem value={'JSON'}>JSON</MenuItem>
+                    <MenuItem value={'XML'}>XML</MenuItem>
+                </Select>
+            </div>
             <div className="containerSingle">
                 <form method="post" onSubmit={handleSubmit} className="inputSingle">
-                    <div className="dataTypeContainer">
-                        <InputLabel id="demo-simple-select-label">Data Type</InputLabel>
-                        <Select
-                            labelId="demo-simple-select-label"
-                            id="demo-simple-select"
-                            value={dataType}
-                            label="Age"
-                            onChange={handleChange}
-                        >
-                            <MenuItem value={'JSON'}>JSON</MenuItem>
-                            <MenuItem value={'XML'}>XML</MenuItem>
-                        </Select>
-                    </div>
                     <TextField
                         id="outlined-multiline-flexible"
                         name='input'
@@ -69,7 +69,7 @@ const ReducedResponse = () => {
                         sx={{width: '100%'}}
                         helperText="Paste an API response into this text box and click submit to get a shortened version of this response. Only the first element in any array will be returned with an ellipses afterwards."
                     />
-                    <Button variant="contained" type="submit" sx={{height: '48px'}}>Submit</Button>
+                    <Button variant="contained" type="submit" sx={{height: '48px', width: '100px'}}>Submit</Button>
                 </form>
                 {showError &&
                     <Alert icon={<ErrorIcon fontSize="inherit" />} severity="error" sx={{width: '100%'}}>
