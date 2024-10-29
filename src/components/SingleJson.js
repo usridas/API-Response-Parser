@@ -1,10 +1,8 @@
-import { TextField, Card, Button, CardContent, InputLabel, Select, MenuItem } from "@mui/material";
+import { TextField, Card, Button, CardContent, InputLabel, Select, MenuItem, Fab, Alert } from "@mui/material";
 import './SingleJson.css';
 import React, { useState } from 'react';
 import { callParseNestedObject, callParseNestedXMLObject } from "../utils/utils";
 import ContentCopyIcon from '@mui/icons-material/ContentCopy';
-import Fab from '@mui/material/Fab';
-import Alert from '@mui/material/Alert';
 import ErrorIcon from '@mui/icons-material/Error';
 import { parseString } from "xml2js";
 
@@ -72,19 +70,19 @@ const SingleJson = () => {
                     <Button variant="contained" type="submit" sx={{height: '48px'}}>Submit</Button>
                 </form>
                 {showError &&
-                    <Alert icon={<ErrorIcon fontSize="inherit" />} severity="error" sx={{marginTop: '24px', width: '100%', margin: '0'}}>
+                    <Alert icon={<ErrorIcon fontSize="inherit" />} severity="error" sx={{width: '100%'}}>
                         The JSON submitted is not in the correct form.
                     </Alert>
                 }
                 {!showError && 
-                <Card className="codeSingle" sx={{ height: '1000px', overflow: 'auto', display: 'flex', flexDirection: 'column' }} px={'10px'}>
-                    <Fab color="primary" aria-label="add" sx={{ alignSelf: 'end', margin: '12px', position: 'absolute', minHeight: '56px'}} onClick={copyToClipboard}>
-                        <ContentCopyIcon />
-                    </Fab>
-                    <CardContent sx={{ height: '100%'}}>
-                        {!showError && output}
-                    </CardContent>  
-                </Card>
+                    <Card className="codeSingle" sx={{ height: '1000px', overflow: 'auto', display: 'flex', flexDirection: 'column' }} px={'10px'}>
+                        <Fab color="primary" aria-label="add" sx={{ alignSelf: 'end', margin: '12px', position: 'absolute', minHeight: '56px'}} onClick={copyToClipboard}>
+                            <ContentCopyIcon />
+                        </Fab>
+                        <CardContent sx={{ height: '100%'}}>
+                            {output}
+                        </CardContent>  
+                    </Card>
                 }
             </div>
         </div>

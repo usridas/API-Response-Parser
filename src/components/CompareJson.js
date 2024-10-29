@@ -1,13 +1,14 @@
-import { TextField, Card, Button, CardContent, InputLabel, Select, MenuItem } from "@mui/material";
+import { TextField, Card, Button, CardContent, InputLabel, Select, MenuItem, Alert, Fab } from "@mui/material";
 import './CompareJson.css';
 import React, { useState } from 'react';
 import {  callParseNestedObject, callParseNestedXMLObject, findDifference } from "../utils/utils";
 import { parseString } from "xml2js";
-import Alert from '@mui/material/Alert';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import ErrorIcon from '@mui/icons-material/Error';
+import ContentCopyIcon from '@mui/icons-material/ContentCopy';
 
 const CompareJson = () => {
+    const [showError, setShowError] = useState('');
     const [output1, setOutput1] = useState('');
     const [output2, setOutput2] = useState('');
     const [diff1, setDiff1] = useState();
@@ -24,9 +25,14 @@ const CompareJson = () => {
         setDataType(event.target.value);
     };
 
+    const copyToClipboard = () => {
+        navigator.clipboard.writeText(output1);
+    }
+
     function handleSubmit(e) {
         // Prevent the browser from reloading the page
         e.preventDefault();
+        setShowError(false);
     
         // Read the form data
         const form = e.target;
@@ -46,12 +52,16 @@ const CompareJson = () => {
             });
         }
         else {
-            parsedJson1 = JSON.parse(Object.fromEntries(formData.entries()).input1);
-            parsedJson2 = JSON.parse(Object.fromEntries(formData.entries()).input2);
-            setOutput1(callParseNestedObject(parsedJson1));
-            setOutput2(callParseNestedObject(parsedJson2));
-            setDiff1(findDifference("left", callParseNestedObject(parsedJson1), callParseNestedObject(parsedJson2)));
-            setDiff2(findDifference("right", callParseNestedObject(parsedJson1), callParseNestedObject(parsedJson2)));
+            try {
+                parsedJson1 = JSON.parse(Object.fromEntries(formData.entries()).input1);
+                parsedJson2 = JSON.parse(Object.fromEntries(formData.entries()).input2);
+                setOutput1(callParseNestedObject(parsedJson1));
+                setOutput2(callParseNestedObject(parsedJson2));
+                setDiff1(findDifference("left", callParseNestedObject(parsedJson1), callParseNestedObject(parsedJson2)));
+                setDiff2(findDifference("right", callParseNestedObject(parsedJson1), callParseNestedObject(parsedJson2)));
+            } catch (error) {
+                setShowError(true);
+            }
         }
     }
     return (
@@ -85,8 +95,8 @@ const CompareJson = () => {
                                     name='input1'
                                     label="Input API response #1"
                                     multiline
-                                    className="input"
                                     helperText="Paste your first API response into this text box."
+                                    sx={{height: '100%', maxHeight: '600px', overflowY: 'scroll'}}
                                 />
                             }
                         </div>
@@ -98,8 +108,8 @@ const CompareJson = () => {
                                     name='input2'
                                     label="Input API response #2"
                                     multiline
-                                    className="input"
                                     helperText="Paste your second API response into this text box."
+                                    sx={{height: '100%', maxHeight: '600px', overflowY: 'scroll'}}
                                 />
                             }
                         </div>
@@ -107,19 +117,27 @@ const CompareJson = () => {
                 </div>
                 <Button variant="contained" type="submit" sx={{height: '48px'}}>Submit</Button>
             </form>
-            {output1 && output2 && output1 === output2 &&
+            {showError &&
+                <Alert icon={<ErrorIcon fontSize="inherit" />} severity="error" sx={{marginTop: '24px'}}>
+                    The JSON submitted is not in the correct form.
+                </Alert>
+            }
+            {!showError && output1 && output2 && output1 === output2 &&
                 <div className="outputContainer">
                     <Alert icon={<CheckCircleIcon fontSize="inherit" />} severity="success" sx={{marginTop: '24px'}}>
                         These structures are the same.
                     </Alert>
-                    <Card className="codeCard" label="API Response" name='outputSame'>
-                        <CardContent className="cardContent">
+                    <Card className="codeSingle" label="API Response" name='outputSame'sx={{ height: '1000px', overflow: 'auto', display: 'flex', flexDirection: 'column' }} px={'10px'}>
+                        <Fab color="primary" aria-label="add" sx={{ alignSelf: 'end', margin: '12px', position: 'absolute', minHeight: '56px'}} onClick={copyToClipboard}>
+                            <ContentCopyIcon />
+                        </Fab>
+                        <CardContent sx={{ height: '100%'}}>
                             {output1}
-                        </CardContent>
+                        </CardContent>  
                     </Card>
                 </div>
             }
-            {(output1 !== output2) &&
+            {!showError && (output1 !== output2) &&
                 <div className="outputContainer">
                     <Alert icon={<ErrorIcon fontSize="inherit" />} severity="error" sx={{marginTop: '24px'}}>
                         These structures are not the same.
@@ -138,8 +156,7 @@ const CompareJson = () => {
                     </div>
                 </div>
             }
-            
-</>
+        </>
     )
 }
 

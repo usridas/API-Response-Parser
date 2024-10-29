@@ -1,11 +1,9 @@
-import { TextField, Card, Button, CardContent, InputLabel, Select, MenuItem  } from "@mui/material";
+import { TextField, Card, Button, CardContent, InputLabel, Select, MenuItem, Fab, Alert  } from "@mui/material";
 import './SingleJson.css';
 import React, { useState } from 'react';
 import { callGetReducedObject, callGetReducedXMLObject } from "../utils/utils";
 import ContentCopyIcon from '@mui/icons-material/ContentCopy';
-import Fab from '@mui/material/Fab';
 import { parseString } from "xml2js";
-import Alert from '@mui/material/Alert';
 import ErrorIcon from '@mui/icons-material/Error';
 
 const ReducedResponse = () => {
@@ -74,7 +72,7 @@ const ReducedResponse = () => {
                     <Button variant="contained" type="submit" sx={{height: '48px'}}>Submit</Button>
                 </form>
                 {showError &&
-                    <Alert icon={<ErrorIcon fontSize="inherit" />} severity="error" sx={{marginTop: '24px', width: '100%', margin: '0'}}>
+                    <Alert icon={<ErrorIcon fontSize="inherit" />} severity="error" sx={{width: '100%'}}>
                         The JSON submitted is not in the correct form.
                     </Alert>
                 }
