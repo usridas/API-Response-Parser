@@ -88,7 +88,9 @@ const CompareJson = () => {
                     </div>
                     <div className="textFieldContainer">
                         <div className="fullApiInputContainer">
-                            API Response #1
+                            <p>
+                                API Response #1
+                            </p>
                             {open &&
                                 <TextField
                                     id="outlined-multiline-flexible"
@@ -101,7 +103,9 @@ const CompareJson = () => {
                             }
                         </div>
                         <div className="fullApiInputContainer">
-                            API Response #2
+                            <p>
+                                API Response #2
+                            </p>
                             {open &&
                                 <TextField
                                     id="outlined-multiline-flexible"

@@ -1,4 +1,4 @@
-import { Button } from '@mui/material';
+import { Button, ButtonGroup } from '@mui/material';
 import './NavBar.css';
 
 export const NavBar = ({setTab, tab}) => {
@@ -16,9 +16,11 @@ export const NavBar = ({setTab, tab}) => {
 
     return (
     <div className='navBarContainer'>
-        <Button onClick={singleApiResponseOnClick} variant={tab === 'singleApiResponse' ? 'contained': 'outlined'}>Analyze single API response</Button>
-        <Button onClick={getReducedResponseOnClick} variant={tab === 'getReducedResponse' ? 'contained': 'outlined'}>Get reduced response</Button>
-        <Button onClick={compareApiResponsesOnClick} variant={tab === 'compareApiResponses' ? 'contained': 'outlined'}>Compare two API responses</Button>
+        <ButtonGroup variant="outlined" aria-label="Basic button group">
+            <Button onClick={singleApiResponseOnClick} variant={tab === 'singleApiResponse' ? 'contained': 'outlined'}>Analyze single API response</Button>
+            <Button onClick={getReducedResponseOnClick} variant={tab === 'getReducedResponse' ? 'contained': 'outlined'}>Get reduced response</Button>
+            <Button onClick={compareApiResponsesOnClick} variant={tab === 'compareApiResponses' ? 'contained': 'outlined'}>Compare two API responses</Button>
+        </ButtonGroup>
     </div>
     )
 }

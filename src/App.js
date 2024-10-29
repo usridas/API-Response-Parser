@@ -10,6 +10,9 @@ function App() {
   
   return (
     <div className="App">
+      <h1 style={{marginBottom: '36px'}}>
+        API Response Parser
+      </h1>
       <NavBar setTab={setTab} tab={tab}/>
       {tab === 'singleApiResponse' &&
         <SingleJson />
