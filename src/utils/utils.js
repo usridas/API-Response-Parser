@@ -10,11 +10,14 @@ export function callParseNestedObject(parsedJson) {
                         outputDisplayString = outputDisplayString + `${'   '.repeat(indent)}${key}: []\n`;
                     }
                     else {
-                        outputDisplayString = outputDisplayString + `${'   '.repeat(indent)}${key}: [\n`;                         
-                        if (typeof obj[key] === 'object') {
+                        outputDisplayString = outputDisplayString + `${'   '.repeat(indent)}"${key}": [\n`;
+                        if (typeof obj[key][0] === "string") {
+                            outputDisplayString = outputDisplayString + `${'   '.repeat(indent+1)}string\n`;
+                        }
+                        else {
                             outputDisplayString = outputDisplayString + `${'   '.repeat(indent+1)} {\n`;
                             parseNestedObject(obj[key][0], indent + 2);
-                            outputDisplayString = outputDisplayString + `${'   '.repeat(indent+1)} }\n`;
+                            outputDisplayString = outputDisplayString + `${'   '.repeat(indent+1)} }\n${'   '.repeat(indent+1)}...\n`;
                         }
                         outputDisplayString = outputDisplayString + `${'   '.repeat(indent)} ]\n`;
                     }
@@ -44,7 +47,10 @@ export function callGetReducedObject(parsedJson) {
                     }
                     else {
                         outputDisplayString = outputDisplayString + `${'   '.repeat(indent)}"${key}": [\n`;                         
-                        if (typeof obj[key] === 'object') {
+                        if (typeof obj[key][0] === "string") {
+                            outputDisplayString = outputDisplayString + `${'   '.repeat(indent+1)}"${obj[key][0]}"\n${'   '.repeat(indent+1)}...\n`;
+                        }
+                        else {
                             outputDisplayString = outputDisplayString + `${'   '.repeat(indent+1)} {\n`;
                             getReducedObject(obj[key][0], indent + 2);
                             outputDisplayString = outputDisplayString + `${'   '.repeat(indent+1)} }\n${'   '.repeat(indent+1)}...\n`;
@@ -122,15 +128,11 @@ export function callGetReducedXMLObject(parsedJson) {
                     }
                     else {
                         outputDisplayString = outputDisplayString + `${'   '.repeat(indent)}<${key}>\n`;                         
-                        if (typeof obj[key] === 'object') {
-                            if (typeof obj[key][0] === "string") {
-                                outputDisplayString = outputDisplayString + `${'   '.repeat(indent+1)}${obj[key][0]}\n`;
-                            }
-                            else {
-                                //outputDisplayString = outputDisplayString + `${'   '.repeat(indent+1)} {\n`;
-                                getReducedXMLObject(obj[key][0], indent + 2);
-                                //outputDisplayString = outputDisplayString + `${'   '.repeat(indent+1)} }\n${'   '.repeat(indent+1)}...\n`;
-                            }
+                        if (typeof obj[key][0] === "string") {
+                            outputDisplayString = outputDisplayString + `${'   '.repeat(indent+1)}${obj[key][0]}\n`;
+                        }
+                        else {
+                            getReducedXMLObject(obj[key][0], indent + 2);
                         }
                         outputDisplayString = outputDisplayString + `${'   '.repeat(indent)}</${key}>\n${'   '.repeat(indent)}...\n`;
                     }
