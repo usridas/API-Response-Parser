@@ -22,3 +22,10 @@
     white-space: pre-wrap;
     font-family:monospace;
 }
+
+.dataTypeContainer {
+    display: flex;
+    flex-direction: column;
+    margin: 0 0 12px auto;
+    width: fit-content;
+}

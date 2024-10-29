@@ -1,4 +1,4 @@
-import { TextField, Card, Button, CardContent, Collapse, InputLabel, Select, MenuItem } from "@mui/material";
+import { TextField, Card, Button, CardContent, InputLabel, Select, MenuItem } from "@mui/material";
 import './CompareJson.css';
 import React, { useState } from 'react';
 import {  callParseNestedObject, callParseNestedXMLObject, findDifference } from "../utils/utils";
@@ -36,9 +36,9 @@ const CompareJson = () => {
     
 
         if(dataType === 'XML') {
-            parseString(Object.fromEntries(formData.entries()).input1, function (err1, result1) {
+            parseString(Object.fromEntries(formData.entries()).input1, {explicitArray : false}, function (err1, result1) {
                 setOutput1(callParseNestedXMLObject(result1));
-                parseString(Object.fromEntries(formData.entries()).input2, function (err2, result2) {
+                parseString(Object.fromEntries(formData.entries()).input2, {explicitArray : false}, function (err2, result2) {
                     setOutput2(callParseNestedXMLObject(result2));
                     setDiff1(findDifference("left", callParseNestedXMLObject(result1), callParseNestedXMLObject(result2)));
                     setDiff2(findDifference("right", callParseNestedXMLObject(result1), callParseNestedXMLObject(result2)));

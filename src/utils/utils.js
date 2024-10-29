@@ -70,20 +70,25 @@ export function callParseNestedXMLObject(parsedJson) {
     let outputDisplayString = '';
     function parseNestedObject(obj, indent = 0) {
         for (let key in obj) {
-            if (typeof obj[key] === 'object') {
+            if (key === "$") {
+                //do nothing
+            }
+            else if (typeof obj[key] === 'object') {
                 if (Array.isArray(obj[key])) {
                     if (!obj[key][0]) {
                         outputDisplayString = outputDisplayString + `${'   '.repeat(indent)}${key}: []\n`;
                     }
-                    else if (obj[key].length === 1 && typeof obj[key][0] === 'string'){
-                        outputDisplayString = outputDisplayString + `${'   '.repeat(indent)}${key}: string\n`;
-                    }
                     else {
                         outputDisplayString = outputDisplayString + `${'   '.repeat(indent)}${key}: [\n`;                         
                         if (typeof obj[key] === 'object') {
-                            outputDisplayString = outputDisplayString + `${'   '.repeat(indent+1)} {\n`;
-                            parseNestedObject(obj[key][0], indent + 2);
-                            outputDisplayString = outputDisplayString + `${'   '.repeat(indent+1)} }\n`;
+                            if (typeof obj[key][0] === "string") {
+                                outputDisplayString = outputDisplayString + `${'   '.repeat(indent+1)}string\n`;
+                            }
+                            else {
+                                outputDisplayString = outputDisplayString + `${'   '.repeat(indent+1)} {\n`;
+                                parseNestedObject(obj[key][0], indent + 2);
+                                outputDisplayString = outputDisplayString + `${'   '.repeat(indent+1)} }\n`;
+                            }
                         }
                         outputDisplayString = outputDisplayString + `${'   '.repeat(indent)} ]\n`;
                     }
@@ -93,12 +98,55 @@ export function callParseNestedXMLObject(parsedJson) {
                     parseNestedObject(obj[key], indent + 1);
                     outputDisplayString = outputDisplayString + `${'   '.repeat(indent)}}\n`;
                 } 
-            } else {
+            }
+            else {
                 outputDisplayString = outputDisplayString + `${'   '.repeat(indent)}${key}: ${typeof obj[key]}\n`;
             }
         }
     }
     parseNestedObject(parsedJson);
+    return outputDisplayString;
+}
+
+export function callGetReducedXMLObject(parsedJson) {
+    let outputDisplayString = '';
+    function getReducedXMLObject(obj, indent = 0) {
+        for (let key in obj) {
+            if (key === "$") {
+                //do nothing
+            }
+            else if (typeof obj[key] === 'object') {
+                if (Array.isArray(obj[key])) {
+                    if (!obj[key][0]) {
+                        outputDisplayString = outputDisplayString + `${'   '.repeat(indent)}<${key}>: []\n`;
+                    }
+                    else {
+                        outputDisplayString = outputDisplayString + `${'   '.repeat(indent)}<${key}>\n`;                         
+                        if (typeof obj[key] === 'object') {
+                            if (typeof obj[key][0] === "string") {
+                                outputDisplayString = outputDisplayString + `${'   '.repeat(indent+1)}${obj[key][0]}\n`;
+                            }
+                            else {
+                                //outputDisplayString = outputDisplayString + `${'   '.repeat(indent+1)} {\n`;
+                                getReducedXMLObject(obj[key][0], indent + 2);
+                                //outputDisplayString = outputDisplayString + `${'   '.repeat(indent+1)} }\n${'   '.repeat(indent+1)}...\n`;
+                            }
+                        }
+                        outputDisplayString = outputDisplayString + `${'   '.repeat(indent)}</${key}>\n${'   '.repeat(indent)}...\n`;
+                    }
+                }
+                else {
+                    outputDisplayString = outputDisplayString + `${'   '.repeat(indent)}<${key}>\n`;
+                    getReducedXMLObject(obj[key], indent + 1);
+                    outputDisplayString = outputDisplayString + `${'   '.repeat(indent)}</${key}>\n`;
+                } 
+            }
+            else {
+                outputDisplayString = outputDisplayString + `${'   '.repeat(indent)}<${key}>${obj[key]}</${key}>\n`;
+            }
+        }
+    }
+    getReducedXMLObject(parsedJson);
     return outputDisplayString;
 }
 
