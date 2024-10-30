@@ -67,7 +67,7 @@ const CompareJson = () => {
     return (
         <>
             <form method="post" onSubmit={handleSubmit} className="container">
-                <div className="inputContainer">
+                
                     <div className="expandButtonAndDataTypeContainer">
                         <Button onClick={handleCollapse} className='button'>
                             {open ? 'Collapse' : 'Expand'}
@@ -88,37 +88,32 @@ const CompareJson = () => {
                     </div>
                     <div className="textFieldContainer">
                         <div className="fullApiInputContainer">
-                            <p>
-                                API Response #1
-                            </p>
                             {open &&
                                 <TextField
                                     id="outlined-multiline-flexible"
                                     name='input1'
                                     label="Input API response #1"
                                     multiline
+                                    rows={24}
                                     helperText="Paste your first API response into this text box."
-                                    sx={{height: '100%', maxHeight: '600px', overflowY: 'scroll'}}
+                                    sx={{height: '100%', maxHeight: '600px'}}
                                 />
                             }
                         </div>
                         <div className="fullApiInputContainer">
-                            <p>
-                                API Response #2
-                            </p>
                             {open &&
                                 <TextField
                                     id="outlined-multiline-flexible"
                                     name='input2'
                                     label="Input API response #2"
                                     multiline
+                                    rows={24}
                                     helperText="Paste your second API response into this text box."
-                                    sx={{height: '100%', maxHeight: '600px', overflowY: 'scroll'}}
+                                    sx={{height: '100%', maxHeight: '600px'}}
                                 />
                             }
                         </div>
                     </div>
-                </div>
                 <Button variant="contained" type="submit" sx={{height: '48px', width: '200px', margin: '0 auto'}}>Submit</Button>
             </form>
             {showError &&
@@ -131,11 +126,11 @@ const CompareJson = () => {
                     <Alert icon={<CheckCircleIcon fontSize="inherit" />} severity="success" sx={{marginTop: '24px'}}>
                         These structures are the same.
                     </Alert>
-                    <Card className="codeSingle" label="API Response" name='outputSame'sx={{ height: '1000px', overflow: 'auto', display: 'flex', flexDirection: 'column' }} px={'10px'}>
+                    <Card className="codeSingle" label="API Response" name='outputSame'sx={{ height: '1000px', display: 'flex', flexDirection: 'column', width: 'auto' }} px={'10px'}>
                         <Fab color="primary" aria-label="add" sx={{ alignSelf: 'end', margin: '12px', position: 'absolute', minHeight: '56px'}} onClick={copyToClipboard}>
                             <ContentCopyIcon />
                         </Fab>
-                        <CardContent sx={{ height: '100%'}}>
+                        <CardContent sx={{ height: '100%', overflow: 'auto'}}>
                             {output1}
                         </CardContent>  
                     </Card>

@@ -1,5 +1,5 @@
 import { TextField, Card, Button, CardContent, InputLabel, Select, MenuItem, Fab, Alert  } from "@mui/material";
-import './SingleJson.css';
+import './ReducedResponse.css';
 import React, { useState } from 'react';
 import { callGetReducedObject, callGetReducedXMLObject } from "../utils/utils";
 import ContentCopyIcon from '@mui/icons-material/ContentCopy';
@@ -45,7 +45,7 @@ const ReducedResponse = () => {
       }
     return (
         <div>
-            <div className="dataTypeContainer">
+            <div className="dataTypeContainerReducedResponse">
                 <InputLabel id="demo-simple-select-label">Data Type</InputLabel>
                 <Select
                     labelId="demo-simple-select-label"
@@ -58,18 +58,18 @@ const ReducedResponse = () => {
                     <MenuItem value={'XML'}>XML</MenuItem>
                 </Select>
             </div>
-            <div className="containerSingle">
-                <form method="post" onSubmit={handleSubmit} className="inputSingle">
+            <div className="containerReducedResponse">
+                <form method="post" onSubmit={handleSubmit} className="inputReducedResponse">
                     <TextField
                         id="outlined-multiline-flexible"
                         name='input'
                         label="Input API response"
                         multiline
-                        maxRows={40}
+                        rows={28}
                         sx={{width: '100%'}}
                         helperText="Paste an API response into this text box and click submit to get a shortened version of this response. Only the first element in any array will be returned with an ellipses afterwards."
                     />
-                    <Button variant="contained" type="submit" sx={{height: '48px', width: '100px'}}>Submit</Button>
+                    <Button variant="contained" type="submit" sx={{height: '48px', width: '100%'}}>Submit</Button>
                 </form>
                 {showError &&
                     <Alert icon={<ErrorIcon fontSize="inherit" />} severity="error" sx={{width: '100%'}}>
@@ -77,8 +77,8 @@ const ReducedResponse = () => {
                     </Alert>
                 }
                 {!showError && 
-                    <Card className="codeSingle" sx={{ height: '1000px', overflow: 'auto', display: 'flex', flexDirection: 'column'  }} px={'10px'}>
-                        <Fab color="primary" aria-label="add" sx={{ alignSelf: 'end', margin: '12px', position: 'absolute', minHeight: '56px'}} onClick={copyToClipboard}>
+                    <Card className="codeReducedResponse" sx={{ height: '1000px', overflow: 'auto', display: 'flex', flexDirection: 'column'  }} px={'10px'}>
+                        <Fab color="primary" aria-label="add" sx={{ alignSelf: 'end', position: 'absolute'}} onClick={copyToClipboard}  disabled={!output || showError}>
                             <ContentCopyIcon />
                         </Fab>
                         <CardContent sx={{ height: '100%'}}>

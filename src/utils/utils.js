@@ -10,7 +10,7 @@ export function callParseNestedObject(parsedJson) {
                         outputDisplayString = outputDisplayString + `${'   '.repeat(indent)}${key}: []\n`;
                     }
                     else {
-                        outputDisplayString = outputDisplayString + `${'   '.repeat(indent)}"${key}": [\n`;
+                        outputDisplayString = outputDisplayString + `${'   '.repeat(indent)}${key}: [\n`;
                         if (typeof obj[key][0] === "string") {
                             outputDisplayString = outputDisplayString + `${'   '.repeat(indent+1)}string\n`;
                         }
@@ -198,3 +198,43 @@ export function findDifference (dir, one, other) {
       }
     });
   };
+
+  export function getJsonPath(obj, target, path = []) {
+    for (let key in obj) {
+      if (key === target) {
+        return path.concat(key).join('.');
+      }
+      else if (typeof obj[key] === 'object') {
+        const result = getJsonPath(Array.isArray(obj[key]) ? obj[key][0]:obj[key], target, Array.isArray(obj[key]) ? path.concat(`${key}[]`):path.concat(key));
+        if (result !== null) {
+          return result;
+        }
+      }
+    }
+    return null;
+  }
+
+  export function callFindUniqueKeys(obj) {
+    let keys = [];
+    function findAllKeys(obj) {
+        for (let key in obj) {
+            keys.push(key);
+            if (typeof obj[key] === 'object') {
+                findAllKeys(Array.isArray(obj[key]) ? obj[key][0]:obj[key]);
+            }
+        }
+    }
+    function findUniqueKeys(value, index, array) {
+        return array.indexOf(value) === index;
+    }
+
+    findAllKeys(obj);
+
+    let uniqueKeys = keys.filter(findUniqueKeys);
+    let labeledKeys = []
+    for (let item in uniqueKeys) {
+        labeledKeys.push({label: uniqueKeys[item]});
+    }
+
+    return labeledKeys;
+  }

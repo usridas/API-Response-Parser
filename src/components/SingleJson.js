@@ -1,7 +1,7 @@
 import { TextField, Card, Button, CardContent, InputLabel, Select, MenuItem, Fab, Alert } from "@mui/material";
 import './SingleJson.css';
 import React, { useState } from 'react';
-import { callParseNestedObject, callParseNestedXMLObject, callCreateJsonTree } from "../utils/utils";
+import { callParseNestedObject, callParseNestedXMLObject } from "../utils/utils";
 import ContentCopyIcon from '@mui/icons-material/ContentCopy';
 import ErrorIcon from '@mui/icons-material/Error';
 import { parseString } from "xml2js";
@@ -41,9 +41,10 @@ const SingleJson = () => {
             } 
         }
       }
+
     return (
         <div>
-            <div className="dataTypeContainer">
+            <div className="dataTypeContainerSingle">
                 <InputLabel id="demo-simple-select-label">Data Type</InputLabel>
                 <Select
                     labelId="demo-simple-select-label"
@@ -55,7 +56,7 @@ const SingleJson = () => {
                     <MenuItem value={'JSON'}>JSON</MenuItem>
                     <MenuItem value={'XML'}>XML</MenuItem>
                 </Select>
-            </div>
+            </div> 
             <div className="containerSingle">
                 <form method="post" onSubmit={handleSubmit} className="inputSingle">
                     <TextField
@@ -63,11 +64,11 @@ const SingleJson = () => {
                         name='input'
                         label="Input API response"
                         multiline
-                        maxRows={40}
+                        rows={28}
                         helperText="Paste an API response into this text box and click submit to see the structure of the response."
                         sx={{width: '100%'}}
                     />
-                    <Button variant="contained" type="submit" sx={{height: '48px', width: '100px'}}>Submit</Button>
+                    <Button variant="contained" type="submit" sx={{height: '48px', width: '100%'}}>Submit</Button>
                 </form>
                 {showError &&
                     <Alert icon={<ErrorIcon fontSize="inherit" />} severity="error" sx={{width: '100%'}}>
@@ -75,11 +76,11 @@ const SingleJson = () => {
                     </Alert>
                 }
                 {!showError && 
-                    <Card className="codeSingle" sx={{ height: '1000px', overflow: 'auto', display: 'flex', flexDirection: 'column' }} px={'10px'}>
-                        <Fab color="primary" aria-label="add" sx={{ alignSelf: 'end', margin: '12px', position: 'absolute', minHeight: '56px'}} onClick={copyToClipboard}>
+                    <Card className="codeSingle" >
+                        <Fab color="primary" aria-label="add" sx={{ alignSelf: 'end', position: 'absolute'}} onClick={copyToClipboard}  disabled={!output || showError}>
                             <ContentCopyIcon />
                         </Fab>
-                        <CardContent sx={{ height: '100%'}}>
+                        <CardContent sx={{ height: '100%', overflow: 'auto'}}>
                             {output}
                         </CardContent>  
                     </Card>

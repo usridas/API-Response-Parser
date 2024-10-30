@@ -1,0 +1,34 @@
+.containerReducedResponse {
+    display: flex;
+    flex-direction: row;
+    gap: 24px;
+    height: 800px;
+}
+
+.inputReducedResponse {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+    max-height: 800px;
+    gap: 12px;
+}
+
+.codeReducedResponse {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+    font-size: 16px;
+    text-align: left;
+    white-space: pre-wrap;
+    font-family:monospace;
+    padding: 12px;
+}
+
+.dataTypeContainerReducedResponse {
+    display: flex;
+    flex-direction: column;
+    width: fit-content;
+    margin-bottom: 12px;
+}

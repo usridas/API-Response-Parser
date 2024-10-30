@@ -4,6 +4,7 @@ import React, { useState } from 'react';
 import SingleJson from './components/SingleJson';
 import { NavBar } from './components/NavBar';
 import ReducedResponse from './components/ReducedResponse';
+import PathSearch from './components/PathSearch';
 
 function App() {
   const [tab, setTab] = useState('singleApiResponse');
@@ -22,6 +23,9 @@ function App() {
       }
       {tab === 'getReducedResponse' &&
         <ReducedResponse />
+      }
+      {tab === 'findPathOfKey' &&
+        <PathSearch />
       }
     </div>
   );
