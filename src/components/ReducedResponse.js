@@ -77,7 +77,7 @@ const ReducedResponse = () => {
                     </Alert>
                 }
                 {!showError && 
-                    <Card className="codeReducedResponse" sx={{ height: '1000px', overflow: 'auto', display: 'flex', flexDirection: 'column'  }} px={'10px'}>
+                    <Card className="codeReducedResponse">
                         <Fab color="primary" aria-label="add" sx={{ alignSelf: 'end', position: 'absolute'}} onClick={copyToClipboard}  disabled={!output || showError}>
                             <ContentCopyIcon />
                         </Fab>
