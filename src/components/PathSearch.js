@@ -77,9 +77,7 @@ const PathSearch = () => {
                         helperText="Paste an API response into this text box and click submit to see the structure of the response."
                         sx={{width: '100%'}}
                     />
-                    <div className="buttonContainerPathSearch">
-                        <Button variant="contained" type="submit" sx={{height: '48px', width: '100%'}}>Submit</Button>
-                    </div>
+                    <Button variant="contained" type="submit" sx={{height: '48px', width: '100%'}}>Submit</Button>
                 </form>
                 {showError &&
                     <Alert icon={<ErrorIcon fontSize="inherit" />} severity="error" sx={{width: '100%'}}>
@@ -96,8 +94,9 @@ const PathSearch = () => {
                                 sx={{ width: '100%', marginBottom: '12px' }}
                                 onChange={(event, value) => {if (value) {setKey(value.label)}}}
                                 renderInput={(params) => <TextField {...params} label="Key" />}
+                                disabled={!output || showError}
                             />
-                            <Button variant="contained" type="submit" sx={{height: '56px', width: '100px'}} disabled={!output || showError}>Submit</Button>
+                            <Button variant="contained" type="submit" sx={{height: '56px', width: '100%'}} disabled={!output || showError}>Submit</Button>
                         </form>
                         <Card className="pathContainerPathSearch" >
                             <Fab color="primary" aria-label="add" sx={{ alignSelf: 'end',  position: 'absolute'}} onClick={copyToClipboard}  disabled={!output || showError}>

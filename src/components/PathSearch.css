@@ -49,12 +49,6 @@
     width: 100%;
 }
 
-.buttonContainerPathSearch {
-    display: flex;
-    margin: 24px 24px 0 0;
-    width: 50%;
-}
-
 .pathContainerPathSearch {
     display: flex;
     flex-direction: column;

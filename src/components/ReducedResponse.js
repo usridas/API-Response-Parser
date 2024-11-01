@@ -81,7 +81,7 @@ const ReducedResponse = () => {
                         <Fab color="primary" aria-label="add" sx={{ alignSelf: 'end', position: 'absolute'}} onClick={copyToClipboard}  disabled={!output || showError}>
                             <ContentCopyIcon />
                         </Fab>
-                        <CardContent sx={{ height: '100%'}}>
+                        <CardContent sx={{ height: '100%', overflow: 'auto'}}>
                             {output}
                         </CardContent>
                     </Card>
